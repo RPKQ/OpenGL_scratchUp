@@ -3,7 +3,9 @@
 using namespace glm;
 
 GLuint VBO;
-vec3 vertexPos = vec3(0.0, 0.0, 0.0);
+vec3 tianglePos[3] = {
+	vec3(0.0, 0.0, 0.0), vec3(-0.5, 0, 0), vec3(0.5, 0.5, 0.0) 
+};
 
 void MyDisplayFunc()
 {
@@ -13,7 +15,7 @@ void MyDisplayFunc()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-	glDrawArrays(GL_POINTS, 0, 1);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	glDisableVertexAttribArray(0);
 
@@ -29,7 +31,7 @@ void CreateVBO()
 {
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPos), &vertexPos, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(tianglePos), &tianglePos, GL_STATIC_DRAW);
 }
 
 int main(int argc, char *argv[]) 
