@@ -10,9 +10,10 @@ Program::Program(const char* vsPath, const char* fsPath)
 	glAttachShader(this->ID, vs->getID());
 	glAttachShader(this->ID, fs->getID());
 
-	// Link Program
 	GLint Success = 0;
 	GLchar ErrorLog[1024] = { 0 };
+
+	// Link Program
 	glLinkProgram(this->ID);
 	glGetProgramiv(this->ID, GL_LINK_STATUS, &Success);
 	if (Success == 0) {
@@ -21,6 +22,7 @@ Program::Program(const char* vsPath, const char* fsPath)
 		system("pause");
 	}
 
+	// Release Them
 	glDetachShader(this->ID, vs->getID());
 	glDetachShader(this->ID, fs->getID());
 	delete vs;
@@ -42,7 +44,7 @@ Program::~Program()
 	glDeleteProgram(this->ID);
 }
 
-void Program::Use()
+void Program::use()
 {
 	glUseProgram(this->ID);
 }

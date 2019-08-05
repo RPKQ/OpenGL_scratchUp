@@ -13,6 +13,7 @@ vec3 tianglePos[3] = {
 void MyDisplayFunc()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
+	program->use();
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);

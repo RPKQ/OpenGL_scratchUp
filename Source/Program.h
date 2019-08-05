@@ -10,10 +10,10 @@ class Program
 public:
 	Program(const char* vsPath, const char* fsPath);
 	~Program();
+	void use();
 	GLuint getID();
 
 private:
-	void Use();
 	GLuint ID;
 };
 
