@@ -9,7 +9,7 @@ Shader::Shader(GLenum shaderType, const char* filePath)
 	freeShaderSource(shaderSource);
 
 	glCompileShader(this->ID);
-	//shaderLog(this->ID);
+	shaderLog(this->ID);
 }
 
 

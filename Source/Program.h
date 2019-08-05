@@ -13,6 +13,7 @@ public:
 	GLuint getID();
 
 private:
+	void Use();
 	GLuint ID;
 };
 

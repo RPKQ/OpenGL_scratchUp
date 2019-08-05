@@ -25,13 +25,13 @@
     <ClCompile Include="..\Source\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Source\fs.fs" />
-    <None Include="..\Source\vs.vs" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\Source\GLIncludes.h" />
     <ClInclude Include="..\Source\Program.h" />
     <ClInclude Include="..\Source\Shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Assets\fs.fs.glsl" />
+    <None Include="..\Assets\vs.vs.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

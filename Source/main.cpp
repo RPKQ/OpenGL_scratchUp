@@ -1,11 +1,11 @@
-//#include "Program.h"
+#include "Program.h"
 #include "../Source/GLIncludes.h"
 
 using namespace glm;
 using namespace std;
 
 GLuint VBO;
-//Program* program;
+Program* program;
 vec3 tianglePos[3] = {
 	vec3(0.0, 0.0, 0.0), vec3(-0.5, 0, 0), vec3(0.5, 0.5, 0.0) 
 };
@@ -58,7 +58,9 @@ int main(int argc, char *argv[])
 
 	printf("here\n");
 
-	//program = new Program("vs.vs", "fs.fs");
+	const char* fsFilePath = "fs.fs.glsl";
+	const char* vsFilePath = "vs.vs.glsl";
+	program = new Program(vsFilePath, fsFilePath);
 
 	CreateVBO();
 
