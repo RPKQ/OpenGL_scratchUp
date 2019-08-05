@@ -7,12 +7,12 @@ class Shader
 public:
 	Shader(GLenum shaderType, const char* filePath);
 	~Shader();
-	GLuint getID();
+	GLuint getID() const;
 
 private:
 	GLuint ID;
-	char** loadShaderSource(const char* file);
-	void freeShaderSource(char** shaderSource);
+	static char** loadShaderSource(const char* file);
+	static void freeShaderSource(char** shaderSource);
 };
 #endif
 

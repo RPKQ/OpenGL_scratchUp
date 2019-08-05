@@ -18,7 +18,6 @@ Shader::Shader(GLenum shaderType, const char* filePath)
 		glGetShaderInfoLog(this->ID, 1024, NULL, InfoLog);
 		fprintf(stderr, "Error compiling shader type %d: '%s'\n", this->ID, InfoLog);
 		system("pause");
-		//exit(1);
 	}
 }
 
@@ -28,7 +27,7 @@ Shader::~Shader()
 	glDeleteShader(this->ID);
 }
 
-GLuint Shader::getID()
+GLuint Shader::getID() const
 {
 	return this->ID;
 }
