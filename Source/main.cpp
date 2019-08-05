@@ -56,8 +56,6 @@ int main(int argc, char *argv[])
 
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 
-	printf("here\n");
-
 	const char* fsFilePath = "fs.fs.glsl";
 	const char* vsFilePath = "vs.vs.glsl";
 	program = new Program(vsFilePath, fsFilePath);
