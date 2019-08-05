@@ -1,4 +1,8 @@
-﻿  main.cpp
-d:\desktop\繪程\gpa_ass2_106062222\include\common.h(123): warning C4018: '<': signed/unsigned mismatch
-d:\desktop\繪程\gpa_ass2_106062222\include\common.h(125): warning C4018: '<': signed/unsigned mismatch
+﻿  GLIncludes.cpp
+d:\desktop\繪程\gpa_ass2_106062222\source\glincludes.cpp(86): warning C4018: '<': signed/unsigned mismatch
+d:\desktop\繪程\gpa_ass2_106062222\source\glincludes.cpp(88): warning C4018: '<': signed/unsigned mismatch
+  Program.cpp
+  Shader.cpp
+  main.cpp
+  Generating Code...
   GPA_ASS2_106062222.vcxproj -> D:\Desktop\繪程\GPA_ASS2_106062222\Debug\GPA_ASS2_106062222.exe

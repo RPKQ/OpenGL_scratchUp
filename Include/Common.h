@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GPA_ASS2_COMMON_H
+#define GPA_ASS2_COMMON_H
 
 #ifdef _MSC_VER
     #include "GLEW/glew.h"
@@ -133,3 +134,5 @@ texture_data load_png(const char* path)
 	}
     return texture;
 }
+
+#endif

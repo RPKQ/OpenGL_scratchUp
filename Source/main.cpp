@@ -1,8 +1,11 @@
-#include "../Include/Common.h"
+//#include "Program.h"
+#include "../Source/GLIncludes.h"
 
 using namespace glm;
+using namespace std;
 
 GLuint VBO;
+//Program* program;
 vec3 tianglePos[3] = {
 	vec3(0.0, 0.0, 0.0), vec3(-0.5, 0, 0), vec3(0.5, 0.5, 0.0) 
 };
@@ -52,6 +55,10 @@ int main(int argc, char *argv[])
 	}
 
 	glClearColor(0.0, 0.0, 0.0, 0.0);
+
+	printf("here\n");
+
+	//program = new Program("vs.vs", "fs.fs");
 
 	CreateVBO();
 
