@@ -8,9 +8,10 @@
 class Model
 {
 public:
-	Model(const char* filePath);
+	Model();
 	~Model();
 	void draw(Program* program);
+	void addMesh(Mesh* mesh);
 private:
 	std::vector<Mesh*> meshes;
 };

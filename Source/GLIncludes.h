@@ -11,11 +11,6 @@
 	#include <unistd.h>
 #endif
 
-
-#include "../Include/TinyOBJ/tiny_obj_loader.h"
-#include "../Include/STB/stb_image.h"
-
-
 #ifdef _MSC_VER
 	#pragma comment (lib, "glew32.lib")
 	#pragma comment(lib, "freeglut.lib")
@@ -47,15 +42,5 @@
 void dumpInfo(void);
 void shaderLog(GLuint shader);
 void printGLError();
-
-typedef struct _texture_data
-{
-	_texture_data() : width(0), height(0), data(0) {}
-	int width;
-	int height;
-	unsigned char* data;
-} texture_data;
-
-texture_data load_png(const char* path);
 
 #endif

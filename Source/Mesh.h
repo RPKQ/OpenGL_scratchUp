@@ -7,7 +7,8 @@
 class Mesh
 {
 public:
-	Mesh(tinyobj::shape_t shape);
+	Mesh(GLuint VAO, GLuint VBO_POS, GLuint VBO_NORMAL, 
+		GLuint VBO_TEXCOORD, GLuint EBO, GLuint TEXTURE, int MATERIAL_ID, int INDEX_COUNT);
 	~Mesh();
 	void draw(Program* program);
 private:

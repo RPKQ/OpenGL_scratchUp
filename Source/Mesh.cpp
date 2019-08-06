@@ -1,41 +1,16 @@
 #include "Mesh.h"
 
 
-Mesh::Mesh(tinyobj::shape_t shape)
+Mesh::Mesh(GLuint VAO, GLuint VBO_POS, GLuint VBO_NORMAL, GLuint VBO_TEXCOORD, GLuint EBO, GLuint TEXTURE, int MATERIAL_ID, int INDEX_COUNT)
 {
-	glGenVertexArrays(1, &(this->vao));
-	glBindVertexArray(this->vao);
-
-	// position
-	glGenBuffers(1, &(this->vbo_pos));
-	glBindBuffer(GL_ARRAY_BUFFER, this->vbo_pos);
-	glBufferData(GL_ARRAY_BUFFER, shape.mesh.positions.size() * sizeof(float), shape.mesh.positions.data(), GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-	// normal
-	glGenBuffers(1, &(this->vbo_normal));
-	glBindBuffer(GL_ARRAY_BUFFER, this->vbo_normal);
-	glBufferData(GL_ARRAY_BUFFER, shape.mesh.positions.size() * sizeof(float), shape.mesh.normals.data(), GL_STATIC_DRAW);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-	// texCoord
-	glGenBuffers(1, &(this->vbo_texCoord));
-	glBindBuffer(GL_ARRAY_BUFFER, this->vbo_texCoord);
-	glBufferData(GL_ARRAY_BUFFER, shape.mesh.positions.size() * sizeof(float), shape.mesh.texcoords.data(), GL_STATIC_DRAW);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-	// index buffer
-	glGenBuffers(1, &(this->ebo));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, shape.mesh.indices.size() * sizeof(unsigned int), shape.mesh.indices.data(), GL_STATIC_DRAW);
-	
-	// others
-	this->materialID = shape.mesh.material_ids[0];
-	this->indexCount= shape.mesh.indices.size();
-
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
+	vao = VAO;
+	vbo_pos = VBO_POS;
+	vbo_normal = VBO_NORMAL;
+	vbo_texCoord = VBO_TEXCOORD;
+	ebo = EBO;
+	texure = TEXTURE;
+	materialID = MATERIAL_ID;
+	indexCount = INDEX_COUNT;
 }
 
 
@@ -46,6 +21,7 @@ Mesh::~Mesh()
 	glDeleteBuffers(1, &(this->vbo_normal));
 	glDeleteBuffers(1, &(this->vbo_texCoord));
 	glDeleteBuffers(1, &(this->ebo));
+	glDeleteTextures(1, &(this->texure));
 }
 
 void Mesh::draw(Program* program)

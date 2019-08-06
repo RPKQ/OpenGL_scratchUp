@@ -1,4 +1,5 @@
 #include "Program.h"
+#include "Loader.h"
 #include "Model.h"
 #include "../Source/GLIncludes.h"
 
@@ -15,7 +16,6 @@ vec3 tianglePos[3] = {
 void MyDisplayFunc()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	program->use();
 
 	model->draw(program);
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	const char* vsFilePath = "vs.vs.glsl";
 	program = new Program(vsFilePath, fsFilePath);
 	
-	model = new Model("ladybug.obj");
+	model = Loader::loadModel("ladybug.obj");
 
 	glutMainLoop();
 	return 0;
