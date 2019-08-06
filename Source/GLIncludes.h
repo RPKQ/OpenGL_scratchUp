@@ -11,6 +11,11 @@
 	#include <unistd.h>
 #endif
 
+
+#include "../Include/TinyOBJ/tiny_obj_loader.h"
+#include "../Include/STB/stb_image.h"
+
+
 #ifdef _MSC_VER
 	#pragma comment (lib, "glew32.lib")
 	#pragma comment(lib, "freeglut.lib")
@@ -26,6 +31,8 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <vector>
+#include <string>
 
 #ifdef _MSC_VER
 	#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
