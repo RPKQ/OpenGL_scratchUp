@@ -21,11 +21,15 @@
   <ItemGroup>
     <ClCompile Include="..\Source\GLIncludes.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
+    <ClCompile Include="..\Source\Mesh.cpp" />
+    <ClCompile Include="..\Source\Model.cpp" />
     <ClCompile Include="..\Source\Program.cpp" />
     <ClCompile Include="..\Source\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\GLIncludes.h" />
+    <ClInclude Include="..\Source\Mesh.h" />
+    <ClInclude Include="..\Source\Model.h" />
     <ClInclude Include="..\Source\Program.h" />
     <ClInclude Include="..\Source\Shader.h" />
   </ItemGroup>

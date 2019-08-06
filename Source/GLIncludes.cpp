@@ -71,9 +71,6 @@ void printGLError()
 #endif // !TINYOBJLOADER_IMPLMENTATION
 
 
-#include "../Include/TinyOBJ/tiny_obj_loader.h"
-#include "../Include/STB/stb_image.h"
-
 texture_data load_png(const char* path)
 {
 	texture_data texture;

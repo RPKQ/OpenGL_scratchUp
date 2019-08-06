@@ -4,18 +4,12 @@
 #include "Program.h"
 #include "GLIncludes.h"
 
-struct Texture {
-	GLuint id;
-	std::string path;
-	std::string type;
-};
-
 class Mesh
 {
 public:
-	Mesh();
+	Mesh(tinyobj::shape_t shape);
 	~Mesh();
-	void draw(Program program);
+	void draw(Program* program);
 private:
 	GLuint vao;
 	GLuint vbo_pos, vbo_normal, vbo_texCoord;
