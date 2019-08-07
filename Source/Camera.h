@@ -3,6 +3,8 @@
 
 #include "GLIncludes.h"
 
+constexpr auto MOUSE_START_POS = -1;
+
 class Camera 
 {
 public:
@@ -12,6 +14,8 @@ public:
 	~Camera();
 	void moveLocal(Direction direct);
 	void rotateWithMouse(int mouse_x, int mouse_y);
+	void endOfRotate();
+
 	glm::vec3 getLookDir();
 	glm::vec3 getUpDir();
 	glm::vec3 getLeftDir();
@@ -27,7 +31,7 @@ private:
 	float rotateSpeedFactor = 0.0001f;
 	float moveSpeedFactor = 0.05f;
 	struct {
-		int x = -1, y = -1;
+		int x = MOUSE_START_POS, y = MOUSE_START_POS;
 	} lastMouse;
 
 	void updateViewMat();

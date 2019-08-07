@@ -20,7 +20,7 @@ GLubyte timer_cnt = 0;
 bool timer_enabled = true;
 unsigned int timer_speed = 16;
 
-void MyDisplayFunc()
+void DisplayFunc()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	
@@ -36,9 +36,8 @@ void MyDisplayFunc()
 	glutSwapBuffers();
 }
 
-void MyKeyboardFunc(unsigned char key, int x, int y)
+void KeyboardFunc(unsigned char key, int x, int y)
 {
-	printf("%c pressed\n", key);
 	switch (key)
 	{
 	case 'w':
@@ -64,29 +63,30 @@ void MyKeyboardFunc(unsigned char key, int x, int y)
 	}
 }
 
-void MyMotionFunc(int moveX, int moveY)
+void MotionFunc(int moveX, int moveY)
 {
-	/*printf("camPos: ");
-	printVec3(cam->getCamPos());
-	printf("lookDir: ");
-	printVec3(cam->getLookDir());
-	printf("upDir: ");
-	printVec3(cam->getUpDir());*/
-
 	cam->rotateWithMouse(moveX, moveY);
 }
 
-void MyTimerFunc(int val)
+void MouseFunc(int button, int state, int x, int y) {
+	if (state == GLUT_UP) 
+	{
+		cam->endOfRotate();
+	}
+
+}
+
+void TimerFunc(int val)
 {
 	timer_cnt++;
 	glutPostRedisplay();
 	if (timer_enabled)
 	{
-		glutTimerFunc(timer_speed, MyTimerFunc, val);
+		glutTimerFunc(timer_speed, TimerFunc, val);
 	}
 }
 
-void MyReshapeFunc(int width, int height)
+void ReshapeFunc(int width, int height)
 {
 	glViewport(0, 0, width, height);
 	float viewportAspect = (float)width / (float)height;
@@ -95,11 +95,12 @@ void MyReshapeFunc(int width, int height)
 
 void InitCallbackFuncs() 
 {
-	glutDisplayFunc(MyDisplayFunc);
-	glutKeyboardFunc(MyKeyboardFunc);
-	glutMotionFunc(MyMotionFunc);
-	glutTimerFunc(timer_speed, MyTimerFunc, 0);
-	glutReshapeFunc(MyReshapeFunc);
+	glutDisplayFunc(DisplayFunc);
+	glutKeyboardFunc(KeyboardFunc);
+	glutMotionFunc(MotionFunc);
+	glutMouseFunc(MouseFunc);
+	glutTimerFunc(timer_speed, TimerFunc, 0);
+	glutReshapeFunc(ReshapeFunc);
 }
 
 void Init()
@@ -118,7 +119,7 @@ void Init()
 	// callbacks
 	InitCallbackFuncs();
 
-	MyReshapeFunc(windowW, windowH);
+	ReshapeFunc(windowW, windowH);
 }
 
 

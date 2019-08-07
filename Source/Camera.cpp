@@ -47,12 +47,13 @@ void Camera::moveLocal(Camera::Direction direct)
 
 void Camera::rotateWithMouse(int mouse_x, int mouse_y)
 {
-	if (this->lastMouse.x == -1 && this->lastMouse.y == -1)
+	if (this->lastMouse.x == MOUSE_START_POS && this->lastMouse.y == MOUSE_START_POS)
 	{
 		this->lastMouse.x = mouse_x;
 		this->lastMouse.y = mouse_y;
 		return;
 	}
+
 
 	// update lastMouse
 	int move_x = mouse_x - this->lastMouse.x;
@@ -60,8 +61,10 @@ void Camera::rotateWithMouse(int mouse_x, int mouse_y)
 	this->lastMouse.x = mouse_x;
 	this->lastMouse.y = mouse_y;
 
+	printf("move: (%d, %d)\n", move_x, move_y);
+
 	// get rotate matrix
-	glm::vec3 mouseMoveInSpace =  this->getRightDir() * (float)move_x + this->getUpDir() * (float)move_y;
+	glm::vec3 mouseMoveInSpace =  this->getLeftDir() * (float)move_x + this->getUpDir() * (float)move_y;
 	if (glm::length(mouseMoveInSpace) == 0) return;
 
 
@@ -76,6 +79,12 @@ void Camera::rotateWithMouse(int mouse_x, int mouse_y)
 
 	// update viewMatrix
 	this->updateViewMat(); 
+}
+
+void Camera::endOfRotate()
+{
+	this->lastMouse.x = MOUSE_START_POS;
+	this->lastMouse.y = MOUSE_START_POS;
 }
 
 void Camera::updateViewMat()
@@ -106,7 +115,7 @@ glm::vec3 Camera::getLeftDir()
 
 glm::vec3 Camera::getRightDir()
 {
-	return this->getLeftDir();
+	return -this->getLeftDir();
 }
 
 glm::mat4 Camera::getViewMat()
