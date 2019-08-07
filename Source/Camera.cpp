@@ -61,10 +61,8 @@ void Camera::rotateWithMouse(int mouse_x, int mouse_y)
 	this->lastMouse.x = mouse_x;
 	this->lastMouse.y = mouse_y;
 
-	printf("move: (%d, %d)\n", move_x, move_y);
-
 	// get rotate matrix
-	glm::vec3 mouseMoveInSpace =  this->getLeftDir() * (float)move_x + this->getUpDir() * (float)move_y;
+	glm::vec3 mouseMoveInSpace =  this->getRightDir() * (float)move_x - this->getUpDir() * (float)move_y;
 	if (glm::length(mouseMoveInSpace) == 0) return;
 
 

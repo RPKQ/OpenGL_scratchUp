@@ -4,6 +4,6 @@ d:\desktop\繪程\gpa_ass2_106062222\source\model.cpp(7): warning C4018: '<': si
   main.cpp
 d:\desktop\繪程\gpa_ass2_106062222\source\loader.h(39): warning C4018: '<': signed/unsigned mismatch
 d:\desktop\繪程\gpa_ass2_106062222\source\loader.h(41): warning C4018: '<': signed/unsigned mismatch
-d:\desktop\繪程\gpa_ass2_106062222\source\main.cpp(109): warning C4316: 'Camera': object allocated on the heap may not be aligned 16
+d:\desktop\繪程\gpa_ass2_106062222\source\main.cpp(108): warning C4316: 'Camera': object allocated on the heap may not be aligned 16
   Generating Code...
   GPA_ASS2_106062222.vcxproj -> D:\Desktop\繪程\GPA_ASS2_106062222\Debug\GPA_ASS2_106062222.exe

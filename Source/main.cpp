@@ -24,9 +24,9 @@ void DisplayFunc()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	modelMat = glm::rotate(glm::mat4(), (float)glutGet(GLUT_ELAPSED_TIME) / 500.0f, glm::vec3(1.0, 0.0, 0.0));
-	modelMat = modelMat * glm::rotate(glm::mat4(), (float)glutGet(GLUT_ELAPSED_TIME) / 500.0f, glm::vec3(0.0, 1.0, 0.0));
-
+	//modelMat = glm::rotate(glm::mat4(), (float)glutGet(GLUT_ELAPSED_TIME) / 500.0f, glm::vec3(1.0, 0.0, 0.0));
+	//modelMat = modelMat * glm::rotate(glm::mat4(), (float)glutGet(GLUT_ELAPSED_TIME) / 500.0f, glm::vec3(0.0, 1.0, 0.0));
+	modelMat = glm::mat4(1.0);
 	program->setMat4("perspectMat", perspectMat);
 	program->setMat4("modelMat", modelMat);
 	program->setMat4("viewMat", cam->getViewMat());
@@ -73,7 +73,6 @@ void MouseFunc(int button, int state, int x, int y) {
 	{
 		cam->endOfRotate();
 	}
-
 }
 
 void TimerFunc(int val)
@@ -106,7 +105,7 @@ void InitCallbackFuncs()
 void Init()
 {
 	// setup camera
-	cam = new Camera(vec3(-10.0f, 5.0f, 0.0f), vec3(1.0f, 1.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+	cam = new Camera(vec3(0.0f, 15.0f, 20.0f), vec3(0.0f, 15.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 
 	// setup program
 	const char* fsFilePath = "fs.fs.glsl";
@@ -114,7 +113,7 @@ void Init()
 	program = new Program(vsFilePath, fsFilePath);
 	
 	// load models
-	model = Loader::loadModel("Cube.obj");
+	model = Loader::loadModel("torso.obj");
 
 	// callbacks
 	InitCallbackFuncs();

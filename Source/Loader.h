@@ -8,8 +8,8 @@
 #define STB_IMAGE_IMPLEMENTATION_HH
 #define STB_IMAGE_IMPLEMENTATION
 #endif // !STB_IMAGE_IMPLEMENTATION
-#ifndef TINYOBJLOADER_IMPLMENTATION_HH
-#define TINYOBJLOADER_IMPLMENTATION_HH
+#ifndef TINYOBJLOADER_IMPLEMENTATION_HH
+#define TINYOBJLOADER_IMPLEMENTATION_HH
 #define TINYOBJLOADER_IMPLEMENTATION
 #endif // !TINYOBJLOADER_IMPLMENTATION
 
@@ -50,7 +50,7 @@ namespace Loader
 		return texture;
 	}
 
-	Mesh* loadMesh(tinyobj::shape_t shape)
+	Mesh* loadMesh(tinyobj::shape_t& shape)
 	{
 		GLuint vao = 0;
 		GLuint vbo_pos = 0;
@@ -103,16 +103,19 @@ namespace Loader
 		// Load the .obj using "tinyobj"
 		std::vector<tinyobj::shape_t> shapes;
 		std::vector<tinyobj::material_t> materials;
+
 		std::string err;
 
 		bool ret = tinyobj::LoadObj(shapes, materials, err, filePath);
 		if (err.size() > 0)
 		{
-			printf("Load Models Fail! Please check the solution path");
+			printf("Load [%s] Fail! Please check the solution path\n", filePath);
+			std::cout << err << std::endl;
 			system("pause");
 			exit(1);
 		}
-		printf("Load Model %s Success ! Shapes size %d Maerial size %d\n", filePath, shapes.size(), materials.size());
+
+		printf("Load [%s] Success ! Shapes size %d Maerial size %d\n", filePath, shapes.size(), materials.size());
 
 		// Load them into meshes
 		Model* model = new Model();

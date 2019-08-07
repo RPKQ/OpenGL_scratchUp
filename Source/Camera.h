@@ -28,7 +28,7 @@ private:
 	glm::vec3 camPos;
 	glm::vec3 lookPos;
 	glm::vec3 upDir;
-	float rotateSpeedFactor = 0.0001f;
+	float rotateSpeedFactor = 0.001f;
 	float moveSpeedFactor = 0.05f;
 	struct {
 		int x = MOUSE_START_POS, y = MOUSE_START_POS;
