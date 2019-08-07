@@ -9,13 +9,11 @@ using namespace std;
 GLuint VBO;
 Program* program;
 Model* model;
-vec3 tianglePos[3] = {
-	vec3(0.0, 0.0, 0.0), vec3(-0.5, 0, 0), vec3(0.5, 0.5, 0.0) 
-};
 
 void MyDisplayFunc()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
+
 
 	model->draw(program);
 
