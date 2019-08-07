@@ -26,7 +26,6 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <vector>
 #include <string>
 
 #ifdef _MSC_VER
@@ -42,5 +41,7 @@
 void dumpInfo(void);
 void shaderLog(GLuint shader);
 void printGLError();
+void printMat4(glm::mat4 mat);
+void printVec3(glm::vec3 vec);
 
 #endif

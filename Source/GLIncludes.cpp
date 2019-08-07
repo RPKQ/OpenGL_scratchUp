@@ -60,3 +60,18 @@ void printGLError()
 	}
 }
 
+void printMat4(glm::mat4 mat)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+			printf("%lf ", mat[i][j]);
+		printf("\n");
+	}
+}
+
+void printVec3(glm::vec3 vec)
+{
+	printf("(%lf, %lf, %lf)\n", vec.x, vec.y, vec.z);
+}
+

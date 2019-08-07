@@ -4,6 +4,7 @@
 #include "Shader.h"
 
 #include "GLIncludes.h"
+#include <set>
 
 class Program
 {
@@ -29,6 +30,7 @@ public:
 
 private:
 	GLuint ID;
+	std::set<std::string> uniformNames;
 };
 
 #endif

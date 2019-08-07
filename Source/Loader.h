@@ -112,7 +112,7 @@ namespace Loader
 			system("pause");
 			exit(1);
 		}
-		printf("Load Models Success ! Shapes size %d Maerial size %d\n", shapes.size(), materials.size());
+		printf("Load Model %s Success ! Shapes size %d Maerial size %d\n", filePath, shapes.size(), materials.size());
 
 		// Load them into meshes
 		Model* model = new Model();

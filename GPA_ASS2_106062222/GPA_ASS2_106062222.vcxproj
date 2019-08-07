@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\Camera.cpp" />
     <ClCompile Include="..\Source\GLIncludes.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
     <ClCompile Include="..\Source\Mesh.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="..\Source\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\Camera.h" />
     <ClInclude Include="..\Source\GLIncludes.h" />
     <ClInclude Include="..\Source\Loader.h" />
     <ClInclude Include="..\Source\Mesh.h" />

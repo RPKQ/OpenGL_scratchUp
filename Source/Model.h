@@ -3,7 +3,9 @@
 
 #include "Mesh.h"
 #include "Program.h"
+#include "Camera.h"
 #include "GLIncludes.h"
+#include <vector>
 
 class Model
 {
