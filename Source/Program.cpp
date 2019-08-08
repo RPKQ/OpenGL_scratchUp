@@ -53,6 +53,13 @@ GLuint Program::getID() const
 	return this->ID;
 }
 
+void Program::setTexture(const std::string &name, GLuint textureID, int bindingPoint)
+{
+	glActiveTexture(bindingPoint);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	this->setInt(name, bindingPoint);
+}
+
 // ------------------------------------------------------------------------
 void Program::setBool(const std::string &name, bool value) const
 {

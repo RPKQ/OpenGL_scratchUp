@@ -15,6 +15,7 @@ glm::mat4 perspectMat;
 Program* program;
 Model* model;
 Camera* cam;
+GLuint textureID;
 
 GLubyte timer_cnt = 0;
 bool timer_enabled = true;
@@ -24,12 +25,13 @@ void DisplayFunc()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	//modelMat = glm::rotate(glm::mat4(), (float)glutGet(GLUT_ELAPSED_TIME) / 500.0f, glm::vec3(1.0, 0.0, 0.0));
-	//modelMat = modelMat * glm::rotate(glm::mat4(), (float)glutGet(GLUT_ELAPSED_TIME) / 500.0f, glm::vec3(0.0, 1.0, 0.0));
+
 	modelMat = glm::mat4(1.0);
 	program->setMat4("perspectMat", perspectMat);
 	program->setMat4("modelMat", modelMat);
 	program->setMat4("viewMat", cam->getViewMat());
+	program->setTexture("tex", textureID, 0);
+	
 
 	model->draw(program);
 
@@ -113,7 +115,8 @@ void Init()
 	program = new Program(vsFilePath, fsFilePath);
 	
 	// load models
-	model = Loader::loadModel("torso.obj");
+	model = Loader::loadModel("ladybug.obj");
+	textureID = Loader::LoadTexture("ladybug_diff.png");
 
 	// callbacks
 	InitCallbackFuncs();

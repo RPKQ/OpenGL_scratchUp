@@ -1,16 +1,27 @@
-#version 330
+#version 410
 
-layout (location = 0) in vec3 Position;
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec3 normal;
+layout (location = 2) in vec2 texCoord;
 
 uniform mat4 modelMat;
 uniform mat4 viewMat;
 uniform mat4 perspectMat;
 
+out VertexData
+{
+	vec3 fragCoord;
+	vec3 normal;
+    vec2 texCoord;
+} vertexData;
+
+
 void main()
 {
-    gl_Position = perspectMat * viewMat * modelMat * vec4(Position, 1.0);
-    //gl_Position = viewMat * modelMat * vec4(Position, 1.0);
-    //gl_Position = viewMat * vec4(Position, 1.0);
-    //gl_Position = modelMat * vec4(Position, 1.0);
-    //gl_Position = vec4(Position, 1.0);
+    gl_Position = perspectMat * viewMat * modelMat * vec4(position, 1.0);
+    
+	// output
+	vertexData.fragCoord = vec3(modelMat * vec4(position, 1.0));
+	vertexData.normal = mat3(transpose(inverse(modelMat))) * normal;
+	vertexData.texCoord = texCoord;
 }

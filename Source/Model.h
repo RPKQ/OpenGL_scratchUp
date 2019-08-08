@@ -14,6 +14,7 @@ public:
 	~Model();
 	void draw(Program* program);
 	void addMesh(Mesh* mesh);
+	void addTexture(GLuint textureID);
 private:
 	std::vector<Mesh*> meshes;
 };

@@ -17,10 +17,10 @@ void Camera::moveLocal(Camera::Direction direct)
 	switch (direct)
 	{
 	case Camera::UP:
-		movement = this->upDir;
+		movement = glm::vec3(0.0, 1.0, 0.0);
 		break;
 	case Camera::DOWN:
-		movement = -this->upDir;
+		movement = glm::vec3(0.0, -1.0, 0.0);
 		break;
 	case Camera::LEFT:
 		movement = this->getLeftDir();

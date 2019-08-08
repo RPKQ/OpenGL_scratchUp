@@ -18,6 +18,14 @@
 
 namespace Loader
 {
+	// function for call
+	Mesh* loadMesh(tinyobj::shape_t& shape);
+
+	// vbo_pos >> 0, vbo_normal >> 1, vbo_tex >> 2
+	Model* loadModel(const char* filePath);
+	GLuint LoadTexture(char* filePath);
+
+	// implementation
 	typedef struct _texture_data
 	{
 		_texture_data() : width(0), height(0), data(0) {}
@@ -128,7 +136,21 @@ namespace Loader
 		return model;
 	}
 
+	GLuint LoadTexture(const char* filePath) {
+		GLuint textureID;
+		texture_data tdata = load_png(filePath);
 
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_2D, textureID);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, tdata.width, tdata.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tdata.data);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		return textureID;
+	}
 }
 
 #endif // !GPA_ASS2_LOADER_H
