@@ -7,12 +7,19 @@
 using namespace glm;
 using namespace std;
 
+enum { MENU_TIMER_START, MENU_TIMER_STOP, MENU_EXIT, 
+	MENU_SHADER_NORMAL, MENU_SHADER_LIGHTING, MENU_SHADER_TEXTURE};
+
 const int windowW = 1024, windowH = 768;
 
 glm::mat4 modelMat;
 glm::mat4 perspectMat;
 
+Program* programNormal;
+Program* programTexture;
+Program* programLight;
 Program* program;
+
 Model* model;
 Camera* cam;
 GLuint textureID;
@@ -26,13 +33,11 @@ void DisplayFunc()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	modelMat = glm::mat4(1.0);
-	program->setMat4("perspectMat", perspectMat);
+	program->setMat4("pvMat", perspectMat * cam->getViewMat());
 	program->setMat4("modelMat", modelMat);
-	program->setMat4("viewMat", cam->getViewMat());
 	program->setTexture("tex", textureID, 0);
 	program->setVec3("lightPos", glm::vec3(100000.0, 100000.0, 200000.0));
 	program->setBool("useTex", true);
-	
 
 	model->draw(program);
 
@@ -105,34 +110,81 @@ void InitCallbackFuncs()
 	glutReshapeFunc(ReshapeFunc);
 }
 
-void Init()
+void MenuFunc(int id)
 {
-	glClearColor(1.0, 1.0, 1.0, 0.0);
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
+	switch (id)
+	{
+	case MENU_TIMER_START:
+		if (!timer_enabled)
+		{
+			timer_enabled = true;
+			glutTimerFunc(timer_speed, TimerFunc, 0);
+		}
+		break;
+	case MENU_TIMER_STOP:
+		timer_enabled = false;
+		break;
+	case MENU_EXIT:
+		exit(0);
+		break;
+	case MENU_SHADER_NORMAL:
+		program = programNormal;
+		break;
+	case MENU_SHADER_TEXTURE:
+		program = programTexture;
+		break;
+	case MENU_SHADER_LIGHTING:
+		program = programLight;
+		break;
+	default:
+		break;
+	}
+}
 
+void InitMenu()
+{
+	int menu_main = glutCreateMenu(MenuFunc);
+	int menu_timer = glutCreateMenu(MenuFunc);
+	int menu_shader = glutCreateMenu(MenuFunc);
+
+	glutSetMenu(menu_main);
+	glutAddSubMenu("Timer", menu_timer);
+	glutAddSubMenu("Shader", menu_shader);
+	glutAddMenuEntry("Exit", MENU_EXIT);
+
+	glutSetMenu(menu_timer);
+	glutAddMenuEntry("Start", MENU_TIMER_START);
+	glutAddMenuEntry("Stop", MENU_TIMER_STOP);
+
+	glutSetMenu(menu_shader);
+	glutAddMenuEntry("normal", MENU_SHADER_NORMAL);
+	glutAddMenuEntry("texture", MENU_SHADER_TEXTURE);
+	glutAddMenuEntry("lighting", MENU_SHADER_LIGHTING);
+
+	glutSetMenu(menu_main);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+}
+
+void InitObjects()
+{
 	// setup camera
 	cam = new Camera(vec3(0.0f, 15.0f, 20.0f), vec3(0.0f, 15.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 
 	// setup program
-	const char* fsFilePath = "fs.fs.glsl";
-	const char* vsFilePath = "vs.vs.glsl";
-	program = new Program(vsFilePath, fsFilePath);
-	
+	programTexture = new Program("vs.vs.glsl", "fs.fs.glsl");
+	programLight = new Program("vs.vs.glsl", "light.fs.glsl");
+	programNormal = new Program("vs.vs.glsl", "normal.fs.glsl");
+	program = programTexture;
+
 	// load models
 	model = Loader::loadModel("lost_empire.obj");
 	textureID = Loader::LoadTexture("lost_empire-RGBA.png");
 
-	// callbacks
-	InitCallbackFuncs();
-
-	ReshapeFunc(windowW, windowH);
 }
 
-
-int main(int argc, char *argv[]) 
+void Init()
 {
-	glutInit(&argc, argv);
+	// Init Window and GLUT
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowSize(windowW, windowH);
 	glutInitWindowPosition(100, 100);
@@ -142,11 +194,27 @@ int main(int argc, char *argv[])
 	GLenum res = glewInit();
 	if (res != GLEW_OK) {
 		fprintf(stderr, "Error: '%s'\n", glewGetErrorString(res));
-		return 1;
+		system("pause");
+		exit(1);
 	}
 
-	Init();
+	//
+	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
 
+	InitMenu();
+	InitObjects();
+	InitCallbackFuncs();
+
+	// init reshape window
+	ReshapeFunc(windowW, windowH);
+}
+
+int main(int argc, char *argv[]) 
+{
+	glutInit(&argc, argv);
+	Init();
 	glutMainLoop();
 
 	return 0;

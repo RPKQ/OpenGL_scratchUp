@@ -1,8 +1,5 @@
 #version 410
 
-uniform mat4 viewMat;
-uniform sampler2D tex;
-
 in VertexData
 {
 	vec3 fragCoord;
@@ -15,5 +12,6 @@ out vec4 fragColor;
 void main()
 {
 	vec3 texColor = normalize(vertexData.normal);
-	fragColor = vec4(texColor, 1.0);
+	vec3 result = vec3(max(texColor.x, 0), max(texColor.y, 0), max(texColor.z, 0));
+	fragColor = vec4(result, 1.0);
 }

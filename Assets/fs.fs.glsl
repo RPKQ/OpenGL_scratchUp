@@ -1,9 +1,5 @@
 #version 410
 
-uniform mat4 viewMat;
-uniform sampler2D tex;
-uniform int useTex;
-
 in VertexData
 {
 	vec3 fragCoord;
@@ -12,6 +8,10 @@ in VertexData
 } vertexData;
 
 out vec4 fragColor;
+
+uniform int useTex;
+uniform sampler2D tex;
+
 
 void main()
 {

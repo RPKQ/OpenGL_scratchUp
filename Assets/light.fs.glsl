@@ -1,7 +1,5 @@
 #version 410
 
-layout(location = 0) out vec4 fragColor;
-
 in VertexData
 {
 	vec3 fragCoord;
@@ -9,9 +7,11 @@ in VertexData
     vec2 texCoord;
 } vertexData;
 
+layout(location = 0) out vec4 fragColor;
+
+uniform int useTex;
 uniform sampler2D tex;
 uniform vec3 lightPos;
-uniform int useTex;
 
 void main()
 {
