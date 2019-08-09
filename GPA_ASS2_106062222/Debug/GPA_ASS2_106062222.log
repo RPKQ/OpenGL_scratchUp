@@ -1,5 +1,3 @@
-﻿  Camera.cpp
-  main.cpp
-d:\desktop\繪程\gpa_ass2_106062222\source\main.cpp(168): warning C4316: 'Camera': object allocated on the heap may not be aligned 16
-  Generating Code...
+﻿  main.cpp
+d:\desktop\繪程\gpa_ass2_106062222\source\main.cpp(185): warning C4316: 'Camera': object allocated on the heap may not be aligned 16
   GPA_ASS2_106062222.vcxproj -> D:\Desktop\繪程\GPA_ASS2_106062222\Debug\GPA_ASS2_106062222.exe

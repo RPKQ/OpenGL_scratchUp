@@ -7,7 +7,8 @@ using namespace glm;
 using namespace std;
 
 enum { MENU_TIMER_START, MENU_TIMER_STOP, MENU_EXIT, 
-	MENU_SHADER_NORMAL, MENU_SHADER_LIGHTING, MENU_SHADER_TEXTURE};
+	MENU_SHADER_NORMAL, MENU_SHADER_LIGHTING, MENU_SHADER_TEXTURE,
+	MENU_SCENE_SPONZA, MENU_SCENE_EMPIRE};
 
 const int windowW = 1024, windowH = 768;
 
@@ -19,7 +20,9 @@ Program* programTexture;
 Program* programLight;
 Program* program;
 
-AssimpModel* assimpModel;
+AssimpModel* model;
+AssimpModel* model_sponza;
+AssimpModel* model_lostEmpire;
 Camera* cam;
 
 GLubyte timer_cnt = 0;
@@ -36,7 +39,7 @@ void DisplayFunc()
 	program->setVec3("lightPos", glm::vec3(100000.0, 100000.0, 200000.0));
 	program->setBool("useTex", true);
 	
-	assimpModel->draw();
+	model->draw();
 
 	glutSwapBuffers();
 }
@@ -94,7 +97,7 @@ void ReshapeFunc(int width, int height)
 {
 	glViewport(0, 0, width, height);
 	float viewportAspect = (float)width / (float)height;
-	perspectMat = glm::perspective(glm::radians(60.0f), viewportAspect, 0.1f, 1000.0f);
+	perspectMat = glm::perspective(glm::radians(60.0f), viewportAspect, 0.1f, 1500.0f);
 }
 
 void InitCallbackFuncs() 
@@ -133,6 +136,14 @@ void MenuFunc(int id)
 	case MENU_SHADER_LIGHTING:
 		program = programLight;
 		break;
+	case MENU_SCENE_SPONZA:
+		model = model_sponza;
+		cam->setMoveSpeed(5.0);
+		break;
+	case MENU_SCENE_EMPIRE:
+		model = model_lostEmpire;
+		cam->setMoveSpeed(1.0);
+		break;
 	default:
 		break;
 	}
@@ -143,10 +154,12 @@ void InitMenu()
 	int menu_main = glutCreateMenu(MenuFunc);
 	int menu_timer = glutCreateMenu(MenuFunc);
 	int menu_shader = glutCreateMenu(MenuFunc);
+	int menu_scene = glutCreateMenu(MenuFunc);
 
 	glutSetMenu(menu_main);
 	glutAddSubMenu("Timer", menu_timer);
 	glutAddSubMenu("Shader", menu_shader);
+	glutAddSubMenu("Scene", menu_scene);
 	glutAddMenuEntry("Exit", MENU_EXIT);
 
 	glutSetMenu(menu_timer);
@@ -157,6 +170,10 @@ void InitMenu()
 	glutAddMenuEntry("normal", MENU_SHADER_NORMAL);
 	glutAddMenuEntry("texture", MENU_SHADER_TEXTURE);
 	glutAddMenuEntry("lighting", MENU_SHADER_LIGHTING);
+
+	glutSetMenu(menu_scene);
+	glutAddMenuEntry("lost empire", MENU_SCENE_EMPIRE);
+	glutAddMenuEntry("sponza", MENU_SCENE_SPONZA);
 
 	glutSetMenu(menu_main);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
@@ -171,10 +188,12 @@ void InitObjects()
 	programTexture = new Program("vs.vs.glsl", "fs.fs.glsl");
 	programLight = new Program("vs.vs.glsl", "light.fs.glsl");
 	programNormal = new Program("vs.vs.glsl", "normal.fs.glsl");
-	program = programNormal;
+	program = programTexture;
 
 	// load models
-	assimpModel = new AssimpModel("sponza.obj");
+	model_sponza = new AssimpModel("sponza.obj");
+	model_lostEmpire = new AssimpModel("lost_empire.obj");
+	model = model_sponza;
 
 }
 

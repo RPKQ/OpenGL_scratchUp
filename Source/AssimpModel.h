@@ -28,7 +28,7 @@ public:
 private:
 	std::vector<AssimpMesh*> meshes;
 	std::vector<GLuint> materials;
-	std::map<std::string, GLuint> materialPathMap;
+	std::map<std::string, GLuint> matPathIndexMap;
 	int numMeshes;
 	void loadMaterials(const aiScene *scene);
 	void loadMeshes (const aiScene *scene);

@@ -90,6 +90,11 @@ void Camera::updateViewMat()
 	this->viewMatrix = glm::lookAt(this->camPos, this->lookPos, this->upDir);
 }
 
+void Camera::setMoveSpeed(float speedFactor)
+{
+	this->moveSpeedFactor = speedFactor;
+}
+
 glm::vec3 Camera::getCamPos()
 {
 	return this->camPos;

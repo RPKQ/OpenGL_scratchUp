@@ -15,6 +15,7 @@ public:
 	void moveLocal(Direction direct);
 	void rotateWithMouse(int mouse_x, int mouse_y);
 	void endOfRotate();
+	void setMoveSpeed(float speedFactor);
 
 	glm::vec3 getLookDir();
 	glm::vec3 getUpDir();

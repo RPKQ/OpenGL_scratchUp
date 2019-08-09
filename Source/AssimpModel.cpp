@@ -8,6 +8,7 @@
 
 AssimpModel::AssimpModel(const char* filePath)
 {
+	printf("/////////// load scene from [%s] /////////////////\n", filePath);
 	const aiScene *scene = aiImportFile(filePath, aiProcessPreset_TargetRealtime_MaxQuality);
 
 	loadMaterials(scene);
@@ -38,11 +39,9 @@ void AssimpModel::loadMaterials(const aiScene *scene)
 		aiString texturePath;
 		if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == aiReturn_SUCCESS)
 		{
-
-			auto it = materialPathMap.find(std::string(texturePath.C_Str()));
-			if (it != materialPathMap.end())
+			auto it = this->matPathIndexMap.find(std::string(texturePath.C_Str()));
+			if (it != this->matPathIndexMap.end())
 			{
-				printf("found\n");
 				materialID = (*it).second;
 			}
 			else
@@ -52,7 +51,8 @@ void AssimpModel::loadMaterials(const aiScene *scene)
 				glBindTexture(GL_TEXTURE_2D, materialID);
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, tdata.width, tdata.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tdata.data);
 				glGenerateMipmap(GL_TEXTURE_2D);
-				materialPathMap.insert(std::pair<std::string, GLuint>(std::string(texturePath.C_Str()), materialID));
+
+				this->matPathIndexMap.insert(std::pair<std::string, GLuint>(std::string(texturePath.C_Str()), materialID));
 				printf("load material [%s]\n", texturePath.C_Str());
 			}
 		}
