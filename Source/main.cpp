@@ -23,14 +23,15 @@ unsigned int timer_speed = 16;
 
 void DisplayFunc()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-
 	modelMat = glm::mat4(1.0);
 	program->setMat4("perspectMat", perspectMat);
 	program->setMat4("modelMat", modelMat);
 	program->setMat4("viewMat", cam->getViewMat());
 	program->setTexture("tex", textureID, 0);
+	program->setVec3("lightPos", glm::vec3(100000.0, 100000.0, 200000.0));
+	program->setBool("useTex", true);
 	
 
 	model->draw(program);
@@ -106,6 +107,10 @@ void InitCallbackFuncs()
 
 void Init()
 {
+	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
 	// setup camera
 	cam = new Camera(vec3(0.0f, 15.0f, 20.0f), vec3(0.0f, 15.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 
@@ -115,8 +120,8 @@ void Init()
 	program = new Program(vsFilePath, fsFilePath);
 	
 	// load models
-	model = Loader::loadModel("ladybug.obj");
-	textureID = Loader::LoadTexture("ladybug_diff.png");
+	model = Loader::loadModel("lost_empire.obj");
+	textureID = Loader::LoadTexture("lost_empire-RGBA.png");
 
 	// callbacks
 	InitCallbackFuncs();
@@ -128,7 +133,7 @@ void Init()
 int main(int argc, char *argv[]) 
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowSize(windowW, windowH);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("Window");
@@ -139,8 +144,6 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Error: '%s'\n", glewGetErrorString(res));
 		return 1;
 	}
-
-	glClearColor(1.0, 1.0, 1.0, 0.0);
 
 	Init();
 

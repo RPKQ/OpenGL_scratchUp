@@ -38,6 +38,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assets\fs.fs.glsl" />
+    <None Include="..\Assets\light.fs.glsl" />
+    <None Include="..\Assets\normalMapping.fs.glsl" />
     <None Include="..\Assets\vs.vs.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

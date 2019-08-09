@@ -65,5 +65,11 @@
     <None Include="..\Assets\vs.vs.glsl">
       <Filter>Shader Files</Filter>
     </None>
+    <None Include="..\Assets\normalMapping.fs.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="..\Assets\light.fs.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
