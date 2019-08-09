@@ -72,8 +72,8 @@ void Camera::rotateWithMouse(int mouse_x, int mouse_y)
 	// update lookDir and upDir
 	glm::vec4 look_dir = rotateMat * glm::vec4(this->getLookDir(), 0.0);
 	this->lookPos = this->camPos + glm::normalize(glm::vec3(look_dir));
-	glm::vec4 up_dir = rotateMat * glm::vec4(this->getUpDir(), 0.0);
-	this->upDir = glm::normalize(glm::vec3(up_dir));
+	/*glm::vec4 up_dir = rotateMat * glm::vec4(this->getUpDir(), 0.0);
+	this->upDir = glm::normalize(glm::vec3(up_dir));*/
 
 	// update viewMatrix
 	this->updateViewMat(); 
