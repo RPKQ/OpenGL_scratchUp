@@ -2,6 +2,7 @@
 #define GPA_ASS2_ASSIMP_MODEL_H
 
 #include "AssimpMesh.h"
+#include "Program.h"
 #include "GLIncludes.h"
 #include <vector>
 #include <map>

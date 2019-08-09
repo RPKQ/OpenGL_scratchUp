@@ -21,7 +21,6 @@ Program* program;
 
 AssimpModel* assimpModel;
 Camera* cam;
-GLuint textureID;
 
 GLubyte timer_cnt = 0;
 bool timer_enabled = true;
@@ -31,11 +30,9 @@ void DisplayFunc()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	modelMat = glm::mat4(1.0);
 	program->use();
 	program->setMat4("pvMat", perspectMat * cam->getViewMat());
-	program->setMat4("modelMat", modelMat);
-	program->setTexture("tex", textureID, 0);
+	program->setMat4("modelMat", glm::mat4(1.0));
 	program->setVec3("lightPos", glm::vec3(100000.0, 100000.0, 200000.0));
 	program->setBool("useTex", true);
 	
@@ -174,11 +171,9 @@ void InitObjects()
 	programTexture = new Program("vs.vs.glsl", "fs.fs.glsl");
 	programLight = new Program("vs.vs.glsl", "light.fs.glsl");
 	programNormal = new Program("vs.vs.glsl", "normal.fs.glsl");
-	program = programTexture;
+	program = programNormal;
 
 	// load models
-	//model = Loader::loadModel("lost_empire.obj");
-	//textureID = Loader::LoadTexture("lost_empire-RGBA.png");
 	assimpModel = new AssimpModel("lost_empire.obj");
 
 }
@@ -199,7 +194,6 @@ void Init()
 		exit(1);
 	}
 
-	//
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);

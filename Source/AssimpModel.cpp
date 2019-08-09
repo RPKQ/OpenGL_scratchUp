@@ -10,7 +10,7 @@ AssimpModel::AssimpModel(const char* filePath)
 {
 	const aiScene *scene = aiImportFile(filePath, aiProcessPreset_TargetRealtime_MaxQuality);
 
-	loadMaterials(scene);
+	//loadMaterials(scene);
 	loadMeshes(scene);
 
 	aiReleaseImport(scene);
@@ -24,16 +24,17 @@ AssimpModel::~AssimpModel()
 
 void AssimpModel::draw()
 {
-	for (std::vector<AssimpMesh*>::iterator it = meshes.begin(); it != meshes.end(); it++)
-		(*it)->draw();
+	for (int i = 0; i < meshes.size(); i++)
+		meshes[i]->draw(i);
 }
 
 void AssimpModel::loadMaterials(const aiScene *scene)
 {
+	printf("load materials\n");
 	for (unsigned int i = 0; i < scene->mNumMaterials; ++i)
 	{
 		aiMaterial *material = scene->mMaterials[i];
-		GLuint materialID = -1;
+		GLuint materialID = 0;
 		aiString texturePath;
 		if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == aiReturn_SUCCESS)
 		{
@@ -61,11 +62,10 @@ void AssimpModel::loadMaterials(const aiScene *scene)
 
 void AssimpModel::loadMeshes(const aiScene *scene)
 {
-	for (unsigned int i = 0; i < scene->mNumMeshes; ++i)
+	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[i];
 		AssimpMesh* newMesh = new AssimpMesh(mesh);
-		newMesh->setMaterialsArray(&this->materials);
 		this->meshes.push_back(newMesh);
 	}
 }

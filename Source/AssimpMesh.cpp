@@ -2,52 +2,53 @@
 
 AssimpMesh::AssimpMesh(aiMesh* mesh)
 {
-	/////////////////// VAO ///////////////////
-	glGenBuffers(1, &this->vao);
+	// vao
+	glGenVertexArrays(1, &this->vao);
 	glBindVertexArray(this->vao);
 
 
-	/////////////////// VBO ///////////////////
-	std::vector<Vertex> vertices;
-	for (unsigned int v = 0; v < mesh->mNumVertices; ++v)
+	// vbo
+	for (int v = 0; v < mesh->mNumVertices; v++)
 	{
-		glm::vec3 pos = glm::vec3(mesh->mVertices[v].x, mesh->mVertices[v].y, mesh->mVertices[v].z);
-		glm::vec3 normal = glm::vec3(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
-		glm::vec2 texcoord = glm::vec2(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
-		Vertex newVertex(pos, normal, texcoord);
-		vertices.push_back(newVertex);
+		this->data.push_back(mesh->mVertices[v][0]);
+		this->data.push_back(mesh->mVertices[v][1]);
+		this->data.push_back(mesh->mVertices[v][2]);
+		this->data.push_back(mesh->mNormals[v][0]);
+		this->data.push_back(mesh->mNormals[v][1]);
+		this->data.push_back(mesh->mNormals[v][2]);
+		this->data.push_back(mesh->mTextureCoords[0][v][0]);
+		this->data.push_back(mesh->mTextureCoords[0][v][1]);
 	}
-
 	glGenBuffers(1, &this->vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, this->vbo);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-
-	// vertex pos, normal, texcoord
+	glBufferData(GL_ARRAY_BUFFER, this->data.size() * sizeof(float), &this->data[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)(sizeof(float) * 3));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)(sizeof(float) * 6));
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoord));
 
 
-	///////////////// VEO /////////////////////
-	std::vector<unsigned int> indices;
-	for (unsigned int f = 0; f < mesh->mNumFaces; ++f)
+	// ebo
+	for (int v = 0; v < mesh->mNumFaces; v++)
 	{
-		// mesh->mFaces[f].mIndices[0~2] => index
-		aiFace face = mesh->mFaces[f];
-		for (unsigned int j = 0; j < face.mNumIndices; j++)
-			indices.push_back(face.mIndices[j]);
+		this->indices.push_back(mesh->mFaces[v].mIndices[0]);
+		this->indices.push_back(mesh->mFaces[v].mIndices[1]);
+		this->indices.push_back(mesh->mFaces[v].mIndices[2]);
 	}
-	glGenBuffers(1, &this->ebo);
+	glGenBuffers(1, &this->ebo); 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(unsigned int), &this->indices[0], GL_STATIC_DRAW);
 
 
-	////////////////// OTHERS /////////////////
-	this->materialID = mesh->mMaterialIndex;
+	// others
 	this->indexCount = mesh->mNumFaces * 3;
+	this->materialID = mesh->mMaterialIndex;
+
+
+	// log
+	printf("load mesh [%s] with %d vertices\n", mesh->mName.C_Str(), mesh->mNumVertices);
 }
 
 AssimpMesh::~AssimpMesh()
@@ -55,10 +56,10 @@ AssimpMesh::~AssimpMesh()
 
 }
 
-void AssimpMesh::draw()
+void AssimpMesh::draw(int id)
 {
 	glBindVertexArray(this->vao);
-	glBindTexture(GL_TEXTURE_2D, (*this->materialArray)[materialID]);	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ebo);	glDrawElements(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0);
 }
 
 void AssimpMesh::setMaterialsArray(std::vector<GLuint>* material_array)
