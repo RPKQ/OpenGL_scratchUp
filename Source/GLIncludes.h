@@ -14,6 +14,7 @@
 #ifdef _MSC_VER
 	#pragma comment (lib, "glew32.lib")
 	#pragma comment(lib, "freeglut.lib")
+	#pragma comment(lib, "assimp.lib")
 #endif
 
 #define GLM_SWIZZLE

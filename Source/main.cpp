@@ -1,6 +1,5 @@
 #include "Program.h"
-#include "Loader.h"
-#include "Model.h"
+#include "AssimpModel.h"
 #include "Camera.h"
 #include "../Source/GLIncludes.h"
 
@@ -20,7 +19,8 @@ Program* programTexture;
 Program* programLight;
 Program* program;
 
-Model* model;
+//Model* model;
+AssimpModel* assimpModel;
 Camera* cam;
 GLuint textureID;
 
@@ -32,14 +32,14 @@ void DisplayFunc()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	modelMat = glm::mat4(1.0);
+	/*modelMat = glm::mat4(1.0);
 	program->setMat4("pvMat", perspectMat * cam->getViewMat());
 	program->setMat4("modelMat", modelMat);
 	program->setTexture("tex", textureID, 0);
 	program->setVec3("lightPos", glm::vec3(100000.0, 100000.0, 200000.0));
 	program->setBool("useTex", true);
-
-	model->draw(program);
+	
+	model->draw(program);*/
 
 	glutSwapBuffers();
 }
@@ -177,8 +177,9 @@ void InitObjects()
 	program = programTexture;
 
 	// load models
-	model = Loader::loadModel("lost_empire.obj");
-	textureID = Loader::LoadTexture("lost_empire-RGBA.png");
+	//model = Loader::loadModel("lost_empire.obj");
+	//assimpModel = new AssimpModel("sponza.obj");
+	//textureID = Loader::LoadTexture("lost_empire-RGBA.png");
 
 }
 
