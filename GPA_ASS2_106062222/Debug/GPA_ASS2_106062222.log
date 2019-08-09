@@ -1,4 +1,10 @@
 ﻿  AssimpMesh.cpp
 d:\desktop\繪程\gpa_ass2_106062222\source\assimpmesh.cpp(11): warning C4018: '<': signed/unsigned mismatch
 d:\desktop\繪程\gpa_ass2_106062222\source\assimpmesh.cpp(34): warning C4018: '<': signed/unsigned mismatch
+  AssimpModel.cpp
+d:\desktop\繪程\gpa_ass2_106062222\source\assimpmodel.cpp(27): warning C4018: '<': signed/unsigned mismatch
+d:\desktop\繪程\gpa_ass2_106062222\source\assimpmodel.cpp(65): warning C4018: '<': signed/unsigned mismatch
+d:\desktop\繪程\gpa_ass2_106062222\source\assimpmodel.cpp(84): warning C4018: '<': signed/unsigned mismatch
+d:\desktop\繪程\gpa_ass2_106062222\source\assimpmodel.cpp(86): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   GPA_ASS2_106062222.vcxproj -> D:\Desktop\繪程\GPA_ASS2_106062222\Debug\GPA_ASS2_106062222.exe

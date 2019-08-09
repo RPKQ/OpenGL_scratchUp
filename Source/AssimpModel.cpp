@@ -10,7 +10,7 @@ AssimpModel::AssimpModel(const char* filePath)
 {
 	const aiScene *scene = aiImportFile(filePath, aiProcessPreset_TargetRealtime_MaxQuality);
 
-	//loadMaterials(scene);
+	loadMaterials(scene);
 	loadMeshes(scene);
 
 	aiReleaseImport(scene);
@@ -66,6 +66,7 @@ void AssimpModel::loadMeshes(const aiScene *scene)
 	{
 		aiMesh* mesh = scene->mMeshes[i];
 		AssimpMesh* newMesh = new AssimpMesh(mesh);
+		newMesh->setMaterialsArray(&this->materials);
 		this->meshes.push_back(newMesh);
 	}
 }

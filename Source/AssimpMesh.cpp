@@ -58,6 +58,7 @@ AssimpMesh::~AssimpMesh()
 
 void AssimpMesh::draw(int id)
 {
+	glBindTexture(GL_TEXTURE_2D, (*this->materialArray)[id]);
 	glBindVertexArray(this->vao);
 	glDrawElements(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0);
 }
