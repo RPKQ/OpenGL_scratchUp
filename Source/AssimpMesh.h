@@ -19,7 +19,7 @@ class AssimpMesh
 public:
 	AssimpMesh(aiMesh* mesh);
 	~AssimpMesh();
-	void draw(int id);
+	void draw();
 	void setMaterialsArray(std::vector<GLuint>* material_array);
 private:
 	std::string name;

@@ -45,10 +45,11 @@ AssimpMesh::AssimpMesh(aiMesh* mesh)
 	// others
 	this->indexCount = mesh->mNumFaces * 3;
 	this->materialID = mesh->mMaterialIndex;
+	this->name = std::string(mesh->mName.C_Str());
 
 
 	// log
-	printf("load mesh [%s] with %d vertices\n", mesh->mName.C_Str(), mesh->mNumVertices);
+	printf("load mesh [%s] with %d vertices, materialID: %d\n", mesh->mName.C_Str(), mesh->mNumVertices, this->materialID);
 }
 
 AssimpMesh::~AssimpMesh()
@@ -56,9 +57,10 @@ AssimpMesh::~AssimpMesh()
 
 }
 
-void AssimpMesh::draw(int id)
+void AssimpMesh::draw()
 {
-	glBindTexture(GL_TEXTURE_2D, (*this->materialArray)[id]);
+	//std::cout << "draw mesh [" << this->name << "]\n";
+	glBindTexture(GL_TEXTURE_2D, (*this->materialArray)[this->materialID]);
 	glBindVertexArray(this->vao);
 	glDrawElements(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0);
 }

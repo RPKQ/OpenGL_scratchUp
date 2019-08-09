@@ -24,14 +24,14 @@ AssimpModel::~AssimpModel()
 
 void AssimpModel::draw()
 {
-	for (int i = 0; i < meshes.size(); i++)
-		meshes[i]->draw(i);
+	for (int i = 0; i < this->numMeshes; i++)
+		meshes[i]->draw();
 }
 
 void AssimpModel::loadMaterials(const aiScene *scene)
 {
-	printf("load materials\n");
-	for (unsigned int i = 0; i < scene->mNumMaterials; ++i)
+	printf("load %d materials\n", scene->mNumMaterials);
+	for (unsigned int i = 0; i < scene->mNumMaterials; i++)
 	{
 		aiMaterial *material = scene->mMaterials[i];
 		GLuint materialID = 0;
@@ -55,13 +55,19 @@ void AssimpModel::loadMaterials(const aiScene *scene)
 				materialPathMap.insert(std::pair<std::string, GLuint>(std::string(texturePath.C_Str()), materialID));
 				printf("load material [%s]\n", texturePath.C_Str());
 			}
-			this->materials.push_back(materialID);
 		}
+		else
+		{
+			printf("load material [%s] failed!\n", texturePath.C_Str());
+		}
+		this->materials.push_back(materialID);
 	}
 }
 
 void AssimpModel::loadMeshes(const aiScene *scene)
 {
+	printf("load %d meshes\n", scene->mNumMeshes);
+	this->numMeshes = scene->mNumMeshes;
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[i];

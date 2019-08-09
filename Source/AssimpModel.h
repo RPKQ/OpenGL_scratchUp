@@ -29,7 +29,7 @@ private:
 	std::vector<AssimpMesh*> meshes;
 	std::vector<GLuint> materials;
 	std::map<std::string, GLuint> materialPathMap;
-
+	int numMeshes;
 	void loadMaterials(const aiScene *scene);
 	void loadMeshes (const aiScene *scene);
 	static texture_data load_png(const char* filePath);

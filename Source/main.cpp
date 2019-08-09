@@ -174,7 +174,7 @@ void InitObjects()
 	program = programNormal;
 
 	// load models
-	assimpModel = new AssimpModel("lost_empire.obj");
+	assimpModel = new AssimpModel("sponza.obj");
 
 }
 
