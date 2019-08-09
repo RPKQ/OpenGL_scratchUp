@@ -18,7 +18,14 @@ AssimpModel::AssimpModel(const char* filePath)
 
 AssimpModel::~AssimpModel()
 {
+	for (auto it = meshes.begin(); it != meshes.end(); it++)
+		delete *it;
+}
 
+void AssimpModel::draw()
+{
+	for (std::vector<AssimpMesh*>::iterator it = meshes.begin(); it != meshes.end(); it++)
+		(*it)->draw();
 }
 
 void AssimpModel::loadMaterials(const aiScene *scene)
@@ -30,13 +37,25 @@ void AssimpModel::loadMaterials(const aiScene *scene)
 		aiString texturePath;
 		if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == aiReturn_SUCCESS)
 		{
-			texture_data tdata = load_png(texturePath.C_Str());
-			glGenTextures(1, &materialID);
-			glBindTexture(GL_TEXTURE_2D, materialID);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, tdata.width, tdata.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tdata.data);
-			glGenerateMipmap(GL_TEXTURE_2D);
+
+			auto it = materialPathMap.find(std::string(texturePath.C_Str()));
+			if (it != materialPathMap.end())
+			{
+				printf("found\n");
+				materialID = (*it).second;
+			}
+			else
+			{
+				texture_data tdata = load_png(texturePath.C_Str());
+				glGenTextures(1, &materialID);
+				glBindTexture(GL_TEXTURE_2D, materialID);
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, tdata.width, tdata.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tdata.data);
+				glGenerateMipmap(GL_TEXTURE_2D);
+				materialPathMap.insert(std::pair<std::string, GLuint>(std::string(texturePath.C_Str()), materialID));
+				printf("load material [%s]\n", texturePath.C_Str());
+			}
+			this->materials.push_back(materialID);
 		}
-		this->materials.push_back(materialID);
 	}
 }
 
@@ -46,6 +65,7 @@ void AssimpModel::loadMeshes(const aiScene *scene)
 	{
 		aiMesh* mesh = scene->mMeshes[i];
 		AssimpMesh* newMesh = new AssimpMesh(mesh);
+		newMesh->setMaterialsArray(&this->materials);
 		this->meshes.push_back(newMesh);
 	}
 }

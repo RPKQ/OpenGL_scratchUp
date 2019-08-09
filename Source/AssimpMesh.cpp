@@ -54,3 +54,15 @@ AssimpMesh::~AssimpMesh()
 {
 
 }
+
+void AssimpMesh::draw()
+{
+	glBindVertexArray(this->vao);
+	glBindTexture(GL_TEXTURE_2D, (*this->materialArray)[materialID]);	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ebo);	glDrawElements(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0);
+}
+
+void AssimpMesh::setMaterialsArray(std::vector<GLuint>* material_array)
+{
+	this->materialArray = material_array;
+}
+

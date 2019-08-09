@@ -23,8 +23,10 @@ class AssimpMesh
 public:
 	AssimpMesh(aiMesh* mesh);
 	~AssimpMesh();
+	void draw();
+	void setMaterialsArray(std::vector<GLuint>* material_array);
 private:
-
+	std::vector<GLuint>* materialArray;
 	GLuint vao;
 	GLuint ebo;
 	GLuint vbo;

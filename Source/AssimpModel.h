@@ -4,6 +4,7 @@
 #include "AssimpMesh.h"
 #include "GLIncludes.h"
 #include <vector>
+#include <map>
 #include <assimp/scene.h>
 #include <assimp/cimport.h>
 #include <assimp/postprocess.h>
@@ -21,11 +22,12 @@ class AssimpModel
 public:
 	AssimpModel(const char* filePath);
 	~AssimpModel();
+	void draw();
 
 private:
 	std::vector<AssimpMesh*> meshes;
 	std::vector<GLuint> materials;
-	
+	std::map<std::string, GLuint> materialPathMap;
 
 	void loadMaterials(const aiScene *scene);
 	void loadMeshes (const aiScene *scene);
